@@ -4,6 +4,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.leo.spring1.domain.User;
@@ -18,8 +20,9 @@ public class RESTController {
 	}
 	
 	@PostMapping("/jblog")
-	public String httpPost() {
-		return "POST 요청 처리";
+	public String httpPost(@RequestBody User user) {
+//		return "POST 요청 처리";
+		return "POST 요청 처리값:" + user.toString();
 	}
 	
 	@PutMapping("/jblog")
@@ -28,8 +31,8 @@ public class RESTController {
 	}
 	
 	@DeleteMapping("/jblog")
-	public String httpDelete() {
-		return "Delete request processed";
+	public String httpDelete(@RequestParam int id) {
+		return "Delete request processed id: " + id;
 	}
 
 }
