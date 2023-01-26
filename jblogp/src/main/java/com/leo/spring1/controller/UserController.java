@@ -97,5 +97,11 @@ public class UserController {
 		return userRepository.findAll(pageable);
 	}
 	
+	// p104 회원가입
+	@GetMapping("/auth/insertUser")
+	public String insertUser() {
+		return "user/insertUser";
+	}
+	
 	
 }

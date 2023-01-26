@@ -28,11 +28,11 @@ public class UserDAOTest {
 		assertEquals(before+1, after);
 		
 // java.lang.NullPointerException: because "this.userDAO" is null
-// talend에서  { 다음 형식으로 넣어줌
+// talend에서  { 다음 형식으로 넣어주면 ok  post
 //		  "username" : "t2",
 //		  "password": "pass",
 //		  "email" : "t2@g.com" }
-		}
+//		}
 
 	}
 
