@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,20 +22,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.leo.spring1.domain.RoleType;
 import com.leo.spring1.domain.User;
+import com.leo.spring1.dto.ResponseDTO;
 import com.leo.spring1.exception.Spring1Exception;
 import com.leo.spring1.persistence.UserRepository;
+import com.leo.spring1.service.UserService;
 
 @Controller
 public class UserController {
 	@Autowired
 	private UserRepository userRepository;
 	
-	@PostMapping("/user")
-	public @ResponseBody String insertUser(@RequestBody User user) {
-		user.setRole(RoleType.USER);
-		userRepository.save(user);
-		return user.getUsername() + " 회원가입 성공";
-	}
+
+	
+//	@PostMapping("/user")
+//	public @ResponseBody String insertUser(@RequestBody User user) {
+//		user.setRole(RoleType.USER);
+//		userRepository.save(user);
+//		return user.getUsername() + " 회원가입 성공";
+//	}
 	
 	@GetMapping("/user/get/{id}")
 	public @ResponseBody User getUser(@PathVariable int id) {
@@ -103,5 +108,16 @@ public class UserController {
 		return "user/insertUser";
 	}
 	
+	
+	// p 113
+	@Autowired
+	private UserService userService;
+	
+	@PostMapping("/auth/insertUser")
+	public @ResponseBody ResponseDTO<?> insertUser(@RequestBody User user){
+		System.out.print(user.getUsername());
+		userService.insertUser(user);
+		return new ResponseDTO<>(HttpStatus.OK.value(), user.getUsername() + "님 회원가입 성공");
+	}
 	
 }
