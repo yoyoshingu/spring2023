@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +21,8 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="mynavbar">
+    <c:if test="${sessionScope.principal == null }">
+    
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <a class="nav-link" href="/auth/login">로그인 스프링연습</a>
@@ -30,6 +34,24 @@
           <a class="nav-link" href="javascript:void(0)">Link</a>
         </li>
       </ul>
+     </c:if> 
+      
+       <c:if test="${sessionScope.principal != null }">
+    
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/auth/login">회원상세 스프링연습</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/auth/logout">로그아웃 스프링연습</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="javascript:void(0)">Link</a>
+        </li>
+      </ul>
+     </c:if>  
+      
+      
       <form class="d-flex">
         <input class="form-control me-2" type="text" placeholder="Search">
         <button class="btn btn-primary" type="button">Search</button>

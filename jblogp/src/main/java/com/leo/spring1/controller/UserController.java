@@ -3,6 +3,8 @@ package com.leo.spring1.controller;
 import java.util.List;
 import java.util.function.Supplier;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -105,6 +107,7 @@ public class UserController {
 	// p104 회원가입
 	@GetMapping("/auth/insertUser")
 	public String insertUser() {
+		// System.out.println(9/0); // 예외처리 시험
 		return "user/insertUser";
 	}
 	
@@ -115,9 +118,27 @@ public class UserController {
 	
 	@PostMapping("/auth/insertUser")
 	public @ResponseBody ResponseDTO<?> insertUser(@RequestBody User user){
-		System.out.print(user.getUsername());
-		userService.insertUser(user);
-		return new ResponseDTO<>(HttpStatus.OK.value(), user.getUsername() + "님 회원가입 성공");
+//		userService.insertUser(user);
+//		return new ResponseDTO<>(HttpStatus.OK.value(), user.getUsername() + "님 회원가입 성공1 by UserController /auth/insertUser");
+		
+	// 기존회원 확인위해 아래로 수정
+		User findUser = userService.getUser(user.getUsername());
+		
+		if(findUser.getUsername() == null) {
+			userService.insertUser(user);
+			return new ResponseDTO<>(HttpStatus.OK.value(), 
+					user.getUsername() + "님 회원가입 성공2 by UserController /auth/insertUser");		
+		}else {
+			return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), 
+					user.getUsername() + "님 이미 회원임 by UserController /auth/insertUser");		
+			
+		}
+	}
+	
+	@GetMapping("/auth/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
 	}
 	
 }
