@@ -3,8 +3,12 @@ package com.leo.spring1.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,14 +21,29 @@ import com.leo.spring1.service.PostService;
 
 @Controller
 public class PostController {
-	@GetMapping({"", "/"})
+
+// 포스트 게시전 초기 소스
+//	@GetMapping({"", "/"})
+//	//to access this code goto http://localhost:8080
+//	public String getPostList() {
+//		 return "index";  // fixed after chap5
+//	}
 	
-	//to access this code goto http://localhost:8080
-	
-	public String getPostList() {
-		return "index";
+//	@GetMapping({"", "/"})
+//	to access this code goto http://localhost:8080
+//	public String getPostList(Model model) {
+//		model.addAttribute("postList", postService.getPostList());
+//		 return "index";  // fixed after chap5
+//	}
+	// postlist의 페이지 처리를 위해 다음으로 수정함 1/28 p151
+
+	@GetMapping({"", "/"})	 
+	public String getPostList(Model model,
+			@PageableDefault(size = 3, sort = "id", direction = Direction.DESC) Pageable pageable) {
+		model.addAttribute("postList", postService.getPostList(pageable));
+		return "index"; // fixed after chap5
 	}
-	
+
 	@GetMapping("/post/insertPost")
 	public String insertPost() {
 		return "post/insertPost";
