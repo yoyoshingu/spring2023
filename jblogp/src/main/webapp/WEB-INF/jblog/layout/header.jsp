@@ -45,6 +45,9 @@
         <li class="nav-item">
           <a class="nav-link" href="/auth/logout">로그아웃 스프링연습</a>
         </li>
+         <li class="nav-item">
+          <a class="nav-link" href="/post/insertPost">insertPost</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="javascript:void(0)">Link</a>
         </li>
