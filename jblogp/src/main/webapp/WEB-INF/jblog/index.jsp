@@ -35,7 +35,7 @@
 </div>
 --%>
 
-<%--			postList의 pagenation을 위해 다음으로 바꿈 p152--%>
+<%--			postList의 pagination을 위해 다음으로 바꿈 p152--%>
 <div class="container mt-3">
 	<c:if test="${!empty postList }">
 		<h2>PostCard포스트게시물</h2>
@@ -50,8 +50,14 @@
 		</div>
 		<br>
 		<ul class="pagination justify-content-between">
+		<%-- 
 			<li class="page-item"><a class="page-link href="?page=${postList.number - 1}">이전페이지</a></li>
 			<li class="page-item"><a class="page-link href="?page=${postList.number + 1}">다음페이지</a></li>		
+			다음으로 수정됨 --%>
+			<li class="page-item <c:if test="${postList.first}">diabled</c:if>">
+				<a class="page-link href="?page=${postList.number - 1}">이전페이지</a></li>
+			<li class="page-item <c:if test="${postList.last}">diabled</c:if>">">
+				<a class="page-link href="?page=${postList.number + 1}">다음페이지</a></li>		
 		</ul>
 	</c:if>
 </div>
