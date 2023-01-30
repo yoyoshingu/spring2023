@@ -44,7 +44,9 @@
 				<div class="card-body">
 
 					<h4 class="card-title">포스트제목${post.title }</h4>
-					<a href="#" class="btn btn-secondary"> 상세내용보기 </a>
+					<%-- <a href="#" class="btn btn-secondary"> 상세내용보기 </a> --%>
+					<a href="/post/${post.id}" class="btn btn-secondary"> 상세내용보기 </a>
+					
 				</div>
 			</c:forEach>
 		</div>

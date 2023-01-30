@@ -10,7 +10,8 @@ public class Spring1WebMVCConfiguration implements WebMvcConfigurer{
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(
-				new AuthenticateInterceptor()).addPathPatterns("/");
+				// "post/**" 추가됨 p159
+				new AuthenticateInterceptor()).addPathPatterns("/", "post/**");
 	}
 
 }

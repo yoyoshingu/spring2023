@@ -22,6 +22,8 @@ public class PostService {
 		postRepository.save(post);
 	}
 	
+	
+	
 	@Transactional(readOnly = true)
 //	public List<Post> getPostList(){
 //		return postRepository.findAll();
@@ -29,5 +31,26 @@ public class PostService {
 	
 	public Page<Post> getPostList(Pageable pageable){
 		return postRepository.findAll(pageable);
+	}
+	
+	// 포스트 내용보기 추가 p 156
+	
+	@Transactional(readOnly = true)
+	public Post getPost(int id) {
+		return postRepository.findById(id).get();
+	}
+	
+	// 포스트수정하기 p 163
+	@Transactional
+	public void updatePost(Post post) {
+		Post findPost = postRepository.findById(post.getId()).get();
+		findPost.setTitle(post.getTitle());
+		findPost.setContent(post.getContent());
+	}
+	
+	// 포스트삭제 p166
+	@Transactional
+	public void deletePost(int id) {
+		postRepository.deleteById(id);
 	}
 }
