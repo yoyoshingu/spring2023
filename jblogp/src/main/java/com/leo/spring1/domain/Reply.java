@@ -1,7 +1,6 @@
 package com.leo.spring1.domain;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,11 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -28,29 +23,23 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Post {
+
+public class Reply {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(nullable = false, length=100)
-	private String title;
-	
-	@Lob
-	@Column(nullable=false)
+	@Column(nullable = false, length=200)
 	private String content;
 	
 	@CreationTimestamp
-	private Timestamp createdata;
-	
-	private int cnt;
+	private Timestamp createDate;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="userid")
 	private User user;
 	
-	// reply 추가 p177
-	@OneToMany(mappedBy="post", fetch=FetchType.EAGER)
-	@OrderBy("id desc")
-	private List<Reply> replyList;
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="postid")
+	private Post post;
 }
