@@ -29,9 +29,24 @@
             data: JSON.stringify(user),
             contentType: "application/json; charset=utf-8"
         }).done(function (response){
-            console.log(response);
-            alert(response);
-            location ="/";
+             console.log(response);
+            alert("응답왔음"+response["status"] + response["data"]);
+            // location ="/";
+            
+            // 유효성 검사로 아래와 같이 바뀜
+            let status = response["status"];
+            if(status == 200){
+				let message = response["data"];
+				alert(message);
+				location = "/";
+			}else{
+				let warn = "";
+				let errors = response["data"];
+				if(errors.username!=null) warn = warn + errors.username + "\n";
+				if(errors.password!=null) warn = warn + errors.password + "\n";
+				if(errors.email!=null) warn = warn + errors.email + "\n";
+				alert(warn);
+			}
         }).fail(function(error){
             alert("에러발생: " + error);
         });
